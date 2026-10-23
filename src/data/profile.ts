@@ -57,8 +57,7 @@ export interface ProfileData {
 }
 
 export const PROFILE_DATA: ProfileData = {
-  // --- ZMIEŃ SWOJE IMIĘ I NAZWISKO TUTAJ ---
-  name: 'JAN KOWALSKI',
+  name: 'ARTUR JASKULSKI',
   role: 'Projektant Graficzny & Brand Designer',
   disciplines: ['Grafika', 'Branding', 'Digital design', 'DTP & Druk'],
   

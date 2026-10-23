@@ -1,0 +1,50 @@
+name: Publikacja na GitHub Pages
+
+on:
+  push:
+    branches: ['main', 'master']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Klonowanie kodu
+        uses: actions/checkout@v4
+
+      - name: Konfiguracja Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalacja bibliotek
+        run: npm install --legacy-peer-deps
+
+      - name: Konfiguracja GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Budowanie statycznej strony
+        run: npm run build
+
+      - name: Przesłanie plików produkcyjnych (dist)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Wdrożenie na GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

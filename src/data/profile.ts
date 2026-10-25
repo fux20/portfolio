@@ -90,12 +90,12 @@ export const PROFILE_DATA: ProfileData = {
   
   // --- NARZĘDZIA PROJEKTOWE ---
   tools: [
-    { name: 'Adobe Illustrator', category: 'Wektory i logotypy' },
-    { name: 'Adobe InDesign', category: 'Skład wielostronicowy DTP' },
+    { name: 'InkScape', category: 'Wektory i logotypy' },
+    { name: 'Canva', category: 'Kompozycja i grafika' },
+    { name: 'Adobe Illustrator', category: 'Grafika wektorowa' },
     { name: 'Adobe Photoshop', category: 'Obróbka zdjęć i mockupy' },
-    { name: 'Figma', category: 'UI/UX i komponenty cyfrowe' },
-    { name: 'Adobe After Effects', category: 'Animacje i motion design' },
-    { name: 'Blender', category: 'Modelowanie 3D opakowań' }
+    { name: 'Adobe InDesign', category: 'Skład DTP' },
+    { name: 'Figma', category: 'UI/UX i digital design' }
   ],
   
   // --- PROCES PROJEKTOWY ---

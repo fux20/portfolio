@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { PROJECTS, CATEGORIES, Project, ProjectCategory } from '../data/projects.ts';
 import { ImageWithFallback } from './ImageWithFallback.tsx';
 import { ProjectModal } from './ProjectModal.tsx';
@@ -62,14 +62,9 @@ export function Portfolio() {
           </div>
         </div>
 
-        {/* Dynamic Bento & Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+        {/* 3 Columns Desktop / 2 Columns Mobile Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {filteredProjects.map((project) => {
-            // Give featured items a 7 or 8 column span on large screens for visual interest
-            const colSpanClass = project.featured
-              ? 'lg:col-span-7'
-              : 'lg:col-span-5';
-
             return (
               <article
                 key={project.id}
@@ -83,53 +78,70 @@ export function Portfolio() {
                 tabIndex={0}
                 role="button"
                 aria-label={`Zobacz szczegóły projektu ${project.title}`}
-                className={`group cursor-pointer flex flex-col bg-white rounded-lg border border-zinc-200 overflow-hidden hover:border-zinc-400/80 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-zinc-900 ${colSpanClass}`}
+                className="group cursor-pointer flex flex-col bg-white rounded-lg border border-zinc-200 overflow-hidden hover:border-zinc-400/80 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-zinc-900"
               >
-                {/* Visual Thumbnail */}
-                <div className="relative aspect-4/3 w-full bg-zinc-100 overflow-hidden">
+                {/* Visual Thumbnail - Always Square (1:1) */}
+                <div className="relative aspect-square w-full bg-zinc-100 overflow-hidden">
                   <ImageWithFallback
                     src={project.thumbnail}
                     alt={project.title}
                     fallbackTitle={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
                   />
-                  <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-sm">
-                    <ArrowUpRight className="w-4 h-4 text-zinc-900" />
+                  <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-sm">
+                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-900" />
                   </div>
                 </div>
 
                 {/* Card Content & Metadata */}
-                <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between bg-white">
+                <div className="p-4 sm:p-6 flex flex-col flex-1 justify-between bg-white">
                   <div>
                     {/* Unboxed Metadata with typographic separator */}
-                    <div className="flex items-center gap-2 text-xs text-zinc-500 font-medium mb-2.5">
-                      <span className="uppercase tracking-wider text-zinc-900 font-semibold">{project.category}</span>
+                    <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-zinc-500 font-medium mb-1.5 sm:mb-2.5">
+                      <span className="uppercase tracking-wider text-zinc-900 font-semibold truncate">{project.category}</span>
                       <span aria-hidden="true" className="text-zinc-300">·</span>
-                      <span>{project.year}</span>
+                      <span className="shrink-0">{project.year}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-bold tracking-tight text-zinc-950 mb-2 group-hover:text-zinc-700 transition-colors">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold tracking-tight text-zinc-950 mb-1.5 sm:mb-2 group-hover:text-zinc-700 transition-colors line-clamp-1 sm:line-clamp-2">
                       {project.title}
                     </h3>
 
                     {/* Short Description */}
-                    <p className="text-sm text-zinc-600 line-clamp-2 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-zinc-600 line-clamp-2 leading-relaxed">
                       {project.shortDescription}
                     </p>
+
+                    {/* External Link button (np. Zobacz pełny projekt w Canva) */}
+                    {project.externalLink && (
+                      <div className="pt-2 sm:pt-3">
+                        <a
+                          href={project.externalLink.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors shadow-xs group/btn"
+                        >
+                          <span>{project.externalLink.label}</span>
+                          <ExternalLink className="w-3 h-3 text-zinc-400 group-hover/btn:text-white transition-colors" />
+                        </a>
+                      </div>
+                    )}
                   </div>
 
                   {/* Card Footer Tools */}
-                  <div className="pt-4 mt-4 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-400">
-                    <div className="flex items-center gap-2 truncate max-w-[80%]">
-                      {project.tools.slice(0, 3).map((tool, idx) => (
+                  <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-zinc-100 flex items-center justify-between text-[11px] sm:text-xs text-zinc-400">
+                    <div className="flex items-center gap-1.5 sm:gap-2 truncate max-w-[70%] sm:max-w-[75%]">
+                      {project.tools.slice(0, 2).map((tool, idx) => (
                         <span key={tool} className="truncate">
                           {tool}
-                          {idx < Math.min(project.tools.length, 3) - 1 ? ' ·' : ''}
+                          {idx < Math.min(project.tools.length, 2) - 1 ? ' ·' : ''}
                         </span>
                       ))}
                     </div>
-                    <span className="text-zinc-900 font-medium group-hover:underline">
+                    <span className="text-zinc-900 font-medium group-hover:underline shrink-0">
                       Szczegóły →
                     </span>
                   </div>

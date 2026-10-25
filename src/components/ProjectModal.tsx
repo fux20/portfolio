@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, ChevronLeft, ChevronRight, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, CheckCircle2, ArrowRight, ExternalLink } from 'lucide-react';
 import { Project } from '../data/projects.ts';
 import { ImageWithFallback } from './ImageWithFallback.tsx';
 
@@ -125,41 +125,99 @@ export function ProjectModal({
 
         {/* Modal Scrollable Body */}
         <div className="overflow-y-auto p-6 md:p-8 space-y-8 flex-1">
-          {/* Main Visual Display */}
-          <div className="space-y-3">
-            <div className="w-full max-h-[520px] rounded bg-zinc-100 overflow-hidden flex items-center justify-center border border-zinc-200">
-              <ImageWithFallback
-                src={currentDisplayImage}
-                alt={project.title}
-                fallbackTitle={project.title}
-                className="w-full max-h-[520px] object-contain"
-              />
-            </div>
-
-            {/* Gallery thumbnails if multiple */}
-            {currentGallery.length > 1 && (
-              <div className="flex items-center gap-2 overflow-x-auto py-2">
-                {currentGallery.map((img, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`relative w-20 h-16 rounded overflow-hidden shrink-0 border-2 transition-all ${
-                      activeImageIndex === idx
-                        ? 'border-zinc-900 shadow-sm'
-                        : 'border-zinc-200 opacity-60 hover:opacity-100'
-                    }`}
-                  >
+          {/* Visual Display */}
+          {project.grid2x2 ? (
+            /* Siatka 2x2 bez przewijanej galerii i bez podpisów */
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {project.grid2x2.map((img, idx) => (
+                <div key={idx} className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                  <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
                     <ImageWithFallback
                       src={img}
-                      alt={`${project.title} ${idx + 1}`}
-                      className="w-full h-full object-cover"
+                      alt={`${project.title} - plansza ${idx + 1}`}
+                      fallbackTitle={`${project.title} ${idx + 1}`}
+                      className="w-full h-full object-contain"
                     />
-                  </button>
-                ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : project.bannerShowcase ? (
+            <div className="space-y-4">
+              {/* Pierwszy rząd: dwa banery kwadratowe obok siebie (oba w kwadracie, nieprzycięte) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                  <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
+                    <ImageWithFallback
+                      src={project.bannerShowcase.square1.image}
+                      alt={project.bannerShowcase.square1.title}
+                      fallbackTitle={project.bannerShowcase.square1.title}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                  <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
+                    <ImageWithFallback
+                      src={project.bannerShowcase.square2.image}
+                      alt={project.bannerShowcase.square2.title}
+                      fallbackTitle={project.bannerShowcase.square2.title}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
+
+              {/* Drugi rząd: baner prostokątny, dostosowany do pełnej szerokości, nieprzycięty */}
+              <div className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                <div className="w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
+                  <ImageWithFallback
+                    src={project.bannerShowcase.wide.image}
+                    alt={project.bannerShowcase.wide.title}
+                    fallbackTitle={project.bannerShowcase.wide.title}
+                    className="w-full h-auto max-h-[500px] object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Standardowy pojedynczy podgląd z miniaturami galerii */
+            <div className="space-y-3">
+              <div className="w-full max-h-[520px] rounded bg-zinc-100 overflow-hidden flex items-center justify-center border border-zinc-200">
+                <ImageWithFallback
+                  src={currentDisplayImage}
+                  alt={project.title}
+                  fallbackTitle={project.title}
+                  className="w-full max-h-[520px] object-contain"
+                />
+              </div>
+
+              {/* Gallery thumbnails if multiple */}
+              {currentGallery.length > 1 && (
+                <div className="flex items-center gap-2 overflow-x-auto py-2">
+                  {currentGallery.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`relative w-20 h-16 rounded overflow-hidden shrink-0 border-2 transition-all ${
+                        activeImageIndex === idx
+                          ? 'border-zinc-900 shadow-sm'
+                          : 'border-zinc-200 opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <ImageWithFallback
+                        src={img}
+                        alt={`${project.title} ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Project Details Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
@@ -175,6 +233,19 @@ export function ProjectModal({
                 <p className="text-zinc-600 text-base leading-relaxed">
                   {project.description}
                 </p>
+                {project.externalLink && (
+                  <div className="pt-4">
+                    <a
+                      href={project.externalLink.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors shadow-xs group"
+                    >
+                      <span>{project.externalLink.label}</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors" />
+                    </a>
+                  </div>
+                )}
               </div>
 
               {/* Tools list */}
@@ -195,19 +266,39 @@ export function ProjectModal({
 
             {/* Right Column: Scope & Solutions */}
             <div className="lg:col-span-5 space-y-6 bg-zinc-50/70 p-6 rounded border border-zinc-200/80">
-              {project.scope && project.scope.length > 0 && (
+              {((project.scopeGroups && project.scopeGroups.length > 0) || (project.scope && project.scope.length > 0)) && (
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">
                     Zakres zrealizowanych prac
                   </h3>
-                  <ul className="space-y-2 text-xs sm:text-sm text-zinc-600">
-                    {project.scope.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-zinc-800 shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {project.scopeGroups && project.scopeGroups.length > 0 ? (
+                    <div className="space-y-4">
+                      {project.scopeGroups.map((group, gIdx) => (
+                        <div key={gIdx} className="space-y-2">
+                          <h4 className="text-xs font-bold text-zinc-900 tracking-wide">
+                            {group.title}
+                          </h4>
+                          <ul className="space-y-1.5 pl-1 text-xs sm:text-sm text-zinc-600">
+                            {group.items.map((item, iIdx) => (
+                              <li key={iIdx} className="flex items-start gap-2">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-zinc-800 shrink-0 mt-0.5" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <ul className="space-y-2 text-xs sm:text-sm text-zinc-600">
+                      {project.scope?.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-zinc-800 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
 
@@ -228,6 +319,38 @@ export function ProjectModal({
               )}
             </div>
           </div>
+
+          {/* Niewykorzystane koncepcje */}
+          {project.unusedConcepts && (
+            <div className="pt-8 border-t border-zinc-200 space-y-4">
+              <div>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-950 mb-1">
+                  {project.unusedConcepts.title}
+                </h3>
+                <p className="text-sm text-zinc-600 leading-relaxed">
+                  {project.unusedConcepts.description}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                {project.unusedConcepts.concepts.map((concept, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden hover:border-zinc-300 transition-all"
+                  >
+                    <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center overflow-hidden p-2">
+                      <ImageWithFallback
+                        src={concept.image}
+                        alt={concept.name}
+                        fallbackTitle={concept.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Modal Footer with CTA */}

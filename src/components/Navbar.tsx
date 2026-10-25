@@ -22,7 +22,7 @@ export function Navbar() {
         {/* Zone 1: Brand title wordmark (1 line, display font) */}
         <a
           href="#"
-          className="text-lg md:text-xl font-bold tracking-tight text-zinc-900 uppercase whitespace-nowrap shrink-0 hover:opacity-80 transition-opacity"
+          className="text-lg md:text-xl font-bold tracking-tight text-[#161530] uppercase whitespace-nowrap shrink-0 hover:opacity-80 transition-opacity"
         >
           {PROFILE_DATA.name}
         </a>
@@ -33,7 +33,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="hover:text-zinc-950 transition-colors whitespace-nowrap shrink-0 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-zinc-950 hover:after:w-full after:transition-all after:duration-200"
+              className="hover:text-[#235d94] transition-colors whitespace-nowrap shrink-0 py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#235d94] hover:after:w-full after:transition-all after:duration-200"
             >
               {link.label}
             </a>
@@ -44,7 +44,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-4 shrink-0">
           <a
             href="#kontakt"
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-zinc-900 focus-visible:outline-offset-2"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#161530] rounded hover:bg-[#161530]/90 transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-[#161530] focus-visible:outline-offset-2"
           >
             <span>Napisz do mnie</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -55,7 +55,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-zinc-700 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-zinc-900 rounded"
+          className="md:hidden p-2 text-zinc-700 hover:text-[#161530] focus-visible:outline-2 focus-visible:outline-[#161530] rounded"
           aria-expanded={mobileMenuOpen}
           aria-label={mobileMenuOpen ? 'Zamknij menu nawigacji' : 'Otwórz menu nawigacji'}
         >
@@ -72,7 +72,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
-                className="py-2 border-b border-zinc-100 hover:text-zinc-950 transition-colors"
+                className="py-2 border-b border-zinc-100 hover:text-[#161530] transition-colors"
               >
                 {link.label}
               </a>
@@ -80,7 +80,7 @@ export function Navbar() {
             <a
               href="#kontakt"
               onClick={handleLinkClick}
-              className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold uppercase tracking-wider text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors"
+              className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold uppercase tracking-wider text-white bg-[#161530] rounded hover:bg-[#161530]/90 transition-colors"
             >
               <span>Napisz do mnie</span>
               <ArrowUpRight className="w-4 h-4" />

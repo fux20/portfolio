@@ -125,7 +125,7 @@ export const PROFILE_DATA: ProfileData = {
   // --- DANE KONTAKTOWE I LINKI ---
   contact: {
     // Podmień na swój adres e-mail:
-    email: 'kontakt@twojadomena.pl',
+    email: 'af.jaskulski@gmail.com',
     location: 'Polska · Dostępny zdalnie',
     status: 'Otwarty na nowe projekty i współpracę',
     socials: [

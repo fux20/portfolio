@@ -47,11 +47,6 @@ import imgRaypathMock02 from '../assets/images/Raypath_kompendium_mock_02.jpg';
 import imgRaypathMock03 from '../assets/images/Raypath_kompendium_mock_03.jpg';
 import imgRaypathMock04 from '../assets/images/Raypath_kompendium_mock_04.jpg';
 import imgMaksDyplomA5 from '../assets/images/Maks_2026_-_dyplom_A5.jpg';
-import imgPackaging from '../assets/images/project_packaging_design_1792791546790.jpg';
-import imgSocial from '../assets/images/project_social_campaign_1792791547290.jpg';
-import imgPoster from '../assets/images/project_poster_design_1792791548422.jpg';
-import imgPrint from '../assets/images/project_print_editorial_1792791549505.jpg';
-import imgDigital from '../assets/images/project_digital_design_1792791549799.jpg';
 
 export type ProjectCategory = 'Branding' | 'Digital' | 'Social Media' | 'Print';
 
@@ -300,33 +295,6 @@ export const PROJECTS: Project[] = [
       'Wizualna prezentacja: opracowanie elementów graficznych i przygotowanie wizualizacji grafik produktowych',
       'Struktura i skład: skład i łamanie tekstu, porządkowanie treści oraz projektowanie układu stron',
       'Spójność: dopracowanie detali, budowanie jednolitego języka wizualnego i przygotowanie katalogu cyfrowego'
-    ]
-  },
-  {
-    id: 'creative-digital-platform',
-    title: 'Nexus Design — Strona Internetowa',
-    category: 'Digital',
-    shortDescription: 'Projekt interfejsu UI/UX dla studia projektowego z przejrzystą architekturą informacji.',
-    description: 'Nowoczesny projekt cyfrowy zorientowany na ekspozycję prac kreatywnych. Oszczędna forma, przemyślana siatka 12-kolumnowa, płynne mikro-interakcje oraz responsywny układ dostosowany do każdego urządzenia.',
-    thumbnail: imgDigital,
-    gallery: [
-      imgDigital,
-      'images/projects/digital.jpg'
-    ],
-    tools: ['Figma', 'Design Systems', 'Web Guidelines'],
-    year: '2024',
-    featured: false,
-    client: 'Nexus Interactive Systems',
-    scope: [
-      'Architektura informacji i makiety UX',
-      'Projekt interfejsu (UI) dla desktopu i mobile',
-      'System komponentów (Design System)',
-      'Specyfikacja mikro-interakcji dla programistów'
-    ],
-    solutions: [
-      'Ciemny motyw interfejsu minimalizujący zmęczenie wzroku i eksponujący multimedia',
-      'Nawigacja zorientowana na maksymalnie 2 kliknięcia do dowolnego studium przypadku',
-      'Zgodność ze standardami dostępności WCAG AA'
     ]
   }
 ];

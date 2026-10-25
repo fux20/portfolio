@@ -68,7 +68,7 @@ export function ProjectModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 overflow-y-auto bg-[#161530]/75 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-project-title"
@@ -80,7 +80,7 @@ export function ProjectModal({
         {/* Modal Top Bar */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200 bg-[#fafafa]">
           <div className="flex items-center gap-3 text-xs text-zinc-500 font-medium">
-            <span className="uppercase tracking-wider text-zinc-900 font-semibold">{project.category}</span>
+            <span className="uppercase tracking-wider text-[#235d94] font-semibold">{project.category}</span>
             <span aria-hidden="true">·</span>
             <span>{project.year}</span>
             {project.client && (
@@ -97,7 +97,7 @@ export function ProjectModal({
               type="button"
               onClick={handlePrev}
               title="Poprzedni projekt (Strzałka w lewo)"
-              className="p-1.5 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 rounded transition-colors"
+              className="p-1.5 text-zinc-500 hover:text-[#161530] hover:bg-zinc-200 rounded transition-colors"
               aria-label="Poprzedni projekt"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -106,7 +106,7 @@ export function ProjectModal({
               type="button"
               onClick={handleNext}
               title="Następny projekt (Strzałka w prawo)"
-              className="p-1.5 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 rounded transition-colors"
+              className="p-1.5 text-zinc-500 hover:text-[#161530] hover:bg-zinc-200 rounded transition-colors"
               aria-label="Następny projekt"
             >
               <ChevronRight className="w-5 h-5" />
@@ -115,7 +115,7 @@ export function ProjectModal({
               type="button"
               onClick={onClose}
               title="Zamknij (Klawisz ESC)"
-              className="p-1.5 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 rounded transition-colors ml-2"
+              className="p-1.5 text-zinc-500 hover:text-[#161530] hover:bg-zinc-200 rounded transition-colors ml-2"
               aria-label="Zamknij okno szczegółów projektu"
             >
               <X className="w-5 h-5" />
@@ -226,7 +226,7 @@ export function ProjectModal({
               <div>
                 <h2
                   id="modal-project-title"
-                  className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 mb-3"
+                  className="text-2xl sm:text-3xl font-bold tracking-tight text-[#161530] mb-3"
                 >
                   {project.title}
                 </h2>
@@ -239,10 +239,10 @@ export function ProjectModal({
                       href={project.externalLink.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors shadow-xs group"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#235d94] rounded hover:bg-[#1c4b78] transition-colors shadow-xs group"
                     >
                       <span>{project.externalLink.label}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-colors" />
+                      <ExternalLink className="w-3.5 h-3.5 text-white/80 group-hover:text-white transition-colors" />
                     </a>
                   </div>
                 )}
@@ -268,20 +268,20 @@ export function ProjectModal({
             <div className="lg:col-span-5 space-y-6 bg-zinc-50/70 p-6 rounded border border-zinc-200/80">
               {((project.scopeGroups && project.scopeGroups.length > 0) || (project.scope && project.scope.length > 0)) && (
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#161530] mb-3">
                     Zakres zrealizowanych prac
                   </h3>
                   {project.scopeGroups && project.scopeGroups.length > 0 ? (
                     <div className="space-y-4">
                       {project.scopeGroups.map((group, gIdx) => (
                         <div key={gIdx} className="space-y-2">
-                          <h4 className="text-xs font-bold text-zinc-900 tracking-wide">
+                          <h4 className="text-xs font-bold text-[#161530] tracking-wide">
                             {group.title}
                           </h4>
                           <ul className="space-y-1.5 pl-1 text-xs sm:text-sm text-zinc-600">
                             {group.items.map((item, iIdx) => (
                               <li key={iIdx} className="flex items-start gap-2">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-zinc-800 shrink-0 mt-0.5" />
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#235d94] shrink-0 mt-0.5" />
                                 <span>{item}</span>
                               </li>
                             ))}
@@ -293,7 +293,7 @@ export function ProjectModal({
                     <ul className="space-y-2 text-xs sm:text-sm text-zinc-600">
                       {project.scope?.map((item) => (
                         <li key={item} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-zinc-800 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#235d94] shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -304,7 +304,7 @@ export function ProjectModal({
 
               {project.solutions && project.solutions.length > 0 && (
                 <div className="pt-4 border-t border-zinc-200">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-[#161530] mb-3">
                     Zastosowane rozwiązania
                   </h3>
                   <ul className="space-y-2 text-xs sm:text-sm text-zinc-600">
@@ -324,7 +324,7 @@ export function ProjectModal({
           {project.unusedConcepts && (
             <div className="pt-8 border-t border-zinc-200 space-y-4">
               <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-950 mb-1">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[#161530] mb-1">
                   {project.unusedConcepts.title}
                 </h3>
                 <p className="text-sm text-zinc-600 leading-relaxed">
@@ -354,14 +354,17 @@ export function ProjectModal({
         </div>
 
         {/* Modal Footer with CTA */}
-        <div className="px-6 py-4 bg-[#fafafa] border-t border-zinc-200 flex items-center justify-between">
-          <span className="text-xs text-zinc-500">
-            Podoba Ci się ten projekt? Porozmawiajmy o podobnej realizacji.
-          </span>
+        <div className="px-5 sm:px-6 py-4 bg-[#fafafa] border-t border-zinc-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div className="text-xs text-zinc-500 leading-snug">
+            <span>Podoba Ci się ten projekt?</span>
+            <span className="block text-zinc-700 font-medium sm:inline sm:ml-1 sm:text-zinc-500 sm:font-normal">
+              Porozmawiajmy o podobnej realizacji.
+            </span>
+          </div>
           <a
             href="#kontakt"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors"
+            className="w-full sm:w-auto text-center whitespace-nowrap px-6 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#161530] rounded hover:bg-[#161530]/90 transition-colors shrink-0 shadow-xs"
           >
             Zapytaj o wycenę
           </a>

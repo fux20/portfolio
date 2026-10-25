@@ -9,11 +9,11 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-zinc-950 border-t border-zinc-900 py-12 text-zinc-500 text-xs">
+    <footer className="bg-[#161530] border-t border-[#23214a] py-12 text-zinc-400 text-xs">
       <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         {/* Left: Name and year */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-center sm:text-left">
-          <span className="font-semibold text-zinc-300 uppercase tracking-wider">
+          <span className="font-semibold text-zinc-200 uppercase tracking-wider">
             {PROFILE_DATA.name}
           </span>
           <span className="hidden sm:inline text-zinc-700">·</span>

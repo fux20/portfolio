@@ -24,7 +24,7 @@ export function Portfolio() {
             <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-2">
               Wybrane realizacje
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#161530]">
               Projekty graficzne
             </h2>
           </div>
@@ -36,8 +36,8 @@ export function Portfolio() {
               onClick={() => setSelectedCategory('Wszystkie')}
               className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
                 selectedCategory === 'Wszystkie'
-                  ? 'bg-white text-zinc-950 shadow-xs font-semibold'
-                  : 'text-zinc-600 hover:text-zinc-950'
+                  ? 'bg-white text-[#161530] shadow-xs font-semibold'
+                  : 'text-zinc-600 hover:text-[#161530]'
               }`}
             >
               Wszystkie ({PROJECTS.length})
@@ -51,8 +51,8 @@ export function Portfolio() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
                     selectedCategory === cat
-                      ? 'bg-white text-zinc-950 shadow-xs font-semibold'
-                      : 'text-zinc-600 hover:text-zinc-950'
+                      ? 'bg-white text-[#161530] shadow-xs font-semibold'
+                      : 'text-zinc-600 hover:text-[#161530]'
                   }`}
                 >
                   {cat} ({count})
@@ -62,8 +62,8 @@ export function Portfolio() {
           </div>
         </div>
 
-        {/* 3 Columns Desktop / 2 Columns Mobile Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        {/* 3 Columns Desktop / 1 Column Mobile Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 lg:gap-8">
           {filteredProjects.map((project) => {
             return (
               <article
@@ -78,7 +78,7 @@ export function Portfolio() {
                 tabIndex={0}
                 role="button"
                 aria-label={`Zobacz szczegóły projektu ${project.title}`}
-                className="group cursor-pointer flex flex-col bg-white rounded-lg border border-zinc-200 overflow-hidden hover:border-zinc-400/80 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-zinc-900"
+                className="group cursor-pointer flex flex-col bg-white rounded-lg border border-zinc-200 overflow-hidden hover:border-zinc-400/80 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-[#161530]"
               >
                 {/* Visual Thumbnail - Always Square (1:1) */}
                 <div className="relative aspect-square w-full bg-zinc-100 overflow-hidden">
@@ -89,7 +89,7 @@ export function Portfolio() {
                     className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
                   />
                   <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-sm">
-                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-900" />
+                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#161530]" />
                   </div>
                 </div>
 
@@ -98,13 +98,13 @@ export function Portfolio() {
                   <div>
                     {/* Unboxed Metadata with typographic separator */}
                     <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-zinc-500 font-medium mb-1.5 sm:mb-2.5">
-                      <span className="uppercase tracking-wider text-zinc-900 font-semibold truncate">{project.category}</span>
+                      <span className="uppercase tracking-wider text-[#235d94] font-semibold truncate">{project.category}</span>
                       <span aria-hidden="true" className="text-zinc-300">·</span>
                       <span className="shrink-0">{project.year}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold tracking-tight text-zinc-950 mb-1.5 sm:mb-2 group-hover:text-zinc-700 transition-colors line-clamp-1 sm:line-clamp-2">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold tracking-tight text-[#161530] mb-1.5 sm:mb-2 group-hover:text-[#235d94] transition-colors line-clamp-1 sm:line-clamp-2">
                       {project.title}
                     </h3>
 
@@ -113,7 +113,7 @@ export function Portfolio() {
                       {project.shortDescription}
                     </p>
 
-                    {/* External Link button (np. Zobacz pełny projekt w Canva) */}
+                    {/* External Link button (np. Zobacz pełny projekt w Canva) with #235d94 accent */}
                     {project.externalLink && (
                       <div className="pt-2 sm:pt-3">
                         <a
@@ -122,10 +122,10 @@ export function Portfolio() {
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           onKeyDown={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white bg-zinc-900 rounded hover:bg-zinc-800 transition-colors shadow-xs group/btn"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white bg-[#235d94] rounded hover:bg-[#1c4b78] transition-colors shadow-xs group/btn"
                         >
                           <span>{project.externalLink.label}</span>
-                          <ExternalLink className="w-3 h-3 text-zinc-400 group-hover/btn:text-white transition-colors" />
+                          <ExternalLink className="w-3 h-3 text-white/80 group-hover/btn:text-white transition-colors" />
                         </a>
                       </div>
                     )}
@@ -141,7 +141,7 @@ export function Portfolio() {
                         </span>
                       ))}
                     </div>
-                    <span className="text-zinc-900 font-medium group-hover:underline shrink-0">
+                    <span className="text-[#235d94] font-semibold group-hover:underline shrink-0">
                       Szczegóły →
                     </span>
                   </div>

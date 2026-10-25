@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --color-zinc-950: #161530;
+  --color-zinc-900: #161530;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -7,6 +12,10 @@
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background-color: #fafafa;
-    color: #18181b;
+    color: #161530;
+  }
+  ::selection {
+    background-color: #235d94;
+    color: #ffffff;
   }
 }

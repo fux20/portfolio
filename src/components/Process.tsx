@@ -9,7 +9,7 @@ export function Process() {
           <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-2">
             Jak pracuję
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#161530] mb-4">
             Proces projektowy
           </h2>
           <p className="text-zinc-600 text-base leading-relaxed">
@@ -28,7 +28,7 @@ export function Process() {
                 <div className="text-2xl font-bold text-zinc-300 mb-6 font-mono tabular-nums">
                   {step.number}
                 </div>
-                <h3 className="text-lg font-bold text-zinc-950 mb-3">
+                <h3 className="text-lg font-bold text-[#161530] mb-3">
                   {step.title}
                 </h3>
                 <p className="text-sm text-zinc-600 leading-relaxed">

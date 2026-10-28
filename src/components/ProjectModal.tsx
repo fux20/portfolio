@@ -81,8 +81,12 @@ export function ProjectModal({
         <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200 bg-[#fafafa]">
           <div className="flex items-center gap-3 text-xs text-zinc-500 font-medium">
             <span className="uppercase tracking-wider text-[#235d94] font-semibold">{project.category}</span>
-            <span aria-hidden="true">·</span>
-            <span>{project.year}</span>
+            {project.year && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{project.year}</span>
+              </>
+            )}
             {project.client && (
               <>
                 <span aria-hidden="true">·</span>
@@ -124,12 +128,57 @@ export function ProjectModal({
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="overflow-y-auto p-6 md:p-8 space-y-8 flex-1">
+        <div className="overflow-y-auto p-6 md:p-8 space-y-6 sm:space-y-8 flex-1">
           {/* Visual Display */}
-          {project.grid2x2 ? (
+          {project.topAndRow ? (
+            /* Układ: baner/logo prostokątne na górze, a pod nim 4 kwadratowe zdjęcia w jednym rzędzie */
+            <div className="space-y-4">
+              <div className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                <div className="w-full bg-zinc-100 flex items-center justify-center p-3 sm:p-4 overflow-hidden">
+                  <ImageWithFallback
+                    src={project.topAndRow.top}
+                    alt={`${project.title} - logotyp prostokątny`}
+                    fallbackTitle={`${project.title} - prostokąt`}
+                    className="w-full h-auto max-h-[380px] object-contain"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-4 gap-2 sm:gap-4">
+                {project.topAndRow.row.map((img, idx) => (
+                  <div key={idx} className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                    <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-1 sm:p-2 overflow-hidden">
+                      <ImageWithFallback
+                        src={img}
+                        alt={`${project.title} - element ${idx + 1}`}
+                        fallbackTitle={`${project.title} ${idx + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : project.grid2x2 ? (
             /* Siatka 2x2 bez przewijanej galerii i bez podpisów */
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {project.grid2x2.map((img, idx) => (
+                <div key={idx} className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                  <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
+                    <ImageWithFallback
+                      src={img}
+                      alt={`${project.title} - plansza ${idx + 1}`}
+                      fallbackTitle={`${project.title} ${idx + 1}`}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : project.sideBySide ? (
+            /* Dwa zdjęcia prezentowane jedno koło drugiego (2 kolumny), bez przewijanej galerii */
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {project.sideBySide.map((img, idx) => (
                 <div key={idx} className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
                   <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
                     <ImageWithFallback
@@ -210,7 +259,7 @@ export function ProjectModal({
                       <ImageWithFallback
                         src={img}
                         alt={`${project.title} ${idx + 1}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain p-0.5 bg-zinc-50"
                       />
                     </button>
                   ))}
@@ -219,17 +268,21 @@ export function ProjectModal({
             </div>
           )}
 
+          {/* Tytuł projektu umieszczony pod zdjęciami */}
+          <div className="pt-2 border-b border-zinc-100 pb-3">
+            <h2
+              id="modal-project-title"
+              className="text-2xl sm:text-3xl font-bold tracking-tight text-[#161530]"
+            >
+              {project.title}
+            </h2>
+          </div>
+
           {/* Project Details Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-            {/* Left Column: Title and Narrative */}
+            {/* Left Column: Narrative and Tools */}
             <div className="lg:col-span-7 space-y-6">
               <div>
-                <h2
-                  id="modal-project-title"
-                  className="text-2xl sm:text-3xl font-bold tracking-tight text-[#161530] mb-3"
-                >
-                  {project.title}
-                </h2>
                 <p className="text-zinc-600 text-base leading-relaxed">
                   {project.description}
                 </p>

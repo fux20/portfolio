@@ -32,7 +32,9 @@
  */
 
 // Importy bezpośrednie obrazów demonstracyjnych (gwarantują 100% działanie w bundlerze Vite)
-import imgMaksLogoFox from '../assets/images/maks_logo_fox.jpg';
+import imgMaksMatematyczny1 from '../assets/images/maks_matematyczny_1.png';
+import imgMaksMatematyczny2 from '../assets/images/maks_matematyczny_2.png';
+import imgMaksMatematyczny3 from '../assets/images/maks_matematyczny_3.png';
 import imgMaksConceptRobot from '../assets/images/maks_concept_robot.png';
 import imgMaksConceptBoy from '../assets/images/maks_concept_boy.png';
 import imgMaksBannerV1Square from '../assets/images/Maks_2026_-_baner_v1_-_kwadrat.jpg';
@@ -47,16 +49,31 @@ import imgRaypathMock02 from '../assets/images/Raypath_kompendium_mock_02.jpg';
 import imgRaypathMock03 from '../assets/images/Raypath_kompendium_mock_03.jpg';
 import imgRaypathMock04 from '../assets/images/Raypath_kompendium_mock_04.jpg';
 import imgMaksDyplomA5 from '../assets/images/Maks_2026_-_dyplom_A5.jpg';
+import imgLioneloCombined from '../assets/images/lionelo_dwa_polaczone.jpg';
+import imgLionelo1 from '../assets/images/lionelo_1.png';
+import imgLionelo2 from '../assets/images/lionelo_2.png';
+import img4parejoSquare from '../assets/images/4parejo_kwadrat.png';
+import img4parejoSingle from '../assets/images/4parejo.jpg';
+import imgMogaloSquare from '../assets/images/mogalo_logo_kwadrat.png';
+import imgMogaloLogoProstokat from '../assets/images/mogalo_logo_prostokat.png';
+import imgMogaloLogo2 from '../assets/images/mogalo_logo_2.png';
+import imgMogaloWizytowka1 from '../assets/images/mogalo_wizytowka_1.png';
+import imgMogaloWizytowka3 from '../assets/images/mogalo_wizytowka_3.png';
+import imgMogaloLogo3 from '../assets/images/mogalo_logo_3.png';
+import imgRaypathPrint1 from '../assets/images/raypath_print_1.png';
+import imgRaypathPrint2 from '../assets/images/raypath_print_2.png';
+import imgRaypathPrint3 from '../assets/images/raypath_print_3.png';
+import imgRaypathPrint4 from '../assets/images/raypath_print_4.png';
 
-export type ProjectCategory = 'Branding' | 'Digital' | 'Social Media' | 'Print';
+export type ProjectCategory = 'Branding' | 'Digital' | 'Social Media' | 'Print' | 'Digital i Branding';
 
 export interface Project {
   /** Unikalny identyfikator projektu (np. "lumen-branding") */
   id: string;
   /** Tytuł projektu wyświetlany w portfolio */
   title: string;
-  /** Kategoria projektu: 'Branding' | 'Digital' | 'Social Media' | 'Print' */
-  category: ProjectCategory;
+  /** Kategoria projektu: 'Branding' | 'Digital' | 'Social Media' | 'Print' | 'Digital i Branding' */
+  category: ProjectCategory | string;
   /** Krótki opis na karcie projektu (1-2 zdania) */
   shortDescription: string;
   /** Pełny opis projektu w oknie szczegółów */
@@ -67,8 +84,8 @@ export interface Project {
   gallery: string[];
   /** Wykorzystane narzędzia i programy */
   tools: string[];
-  /** Rok realizacji */
-  year: string;
+  /** Rok realizacji (opcjonalnie) */
+  year?: string;
   /** Czy projekt jest wyróżniony (większy format w siatce) */
   featured: boolean;
   /** Klient / marka (opcjonalnie) */
@@ -97,6 +114,11 @@ export interface Project {
     square2: { title: string; image: string };
     wide: { title: string; image: string };
   };
+  /** Specjalny układ: zdjęcie panoramiczne/prostokątne na górze, a pod nim 4 kwadratowe zdjęcia w rzędzie (opcjonalnie) */
+  topAndRow?: {
+    top: string;
+    row: string[];
+  };
   /** Opcjonalny zewnętrzny link do pełnego projektu (np. Canva) */
   externalLink?: {
     label: string;
@@ -104,9 +126,11 @@ export interface Project {
   };
   /** Prezentacja grafik w siatce 2x2 w oknie podglądu (opcjonalnie) */
   grid2x2?: string[];
+  /** Prezentacja grafik jedno koło drugiego w oknie podglądu bez przewijanej galerii (opcjonalnie) */
+  sideBySide?: string[];
 }
 
-export const CATEGORIES: ProjectCategory[] = [
+export const CATEGORIES: ('Branding' | 'Digital' | 'Social Media' | 'Print')[] = [
   'Branding',
   'Digital',
   'Social Media',
@@ -120,9 +144,14 @@ export const PROJECTS: Project[] = [
     category: 'Branding',
     shortDescription: 'Projekt logotypu łączący świat matematyki z przyjazną, lekką estetyką dedykowaną młodszym uczestnikom.',
     description: 'W tej części portfolio prezentuję proces tworzenia logotypu. Zadaniem było opracowanie znaku, który połączy świat matematyki z przyjazną, lekką estetyką odpowiednią dla młodszych uczestników.',
-    thumbnail: imgMaksLogoFox,
+    thumbnail: imgMaksMatematyczny1,
+    sideBySide: [
+      imgMaksMatematyczny2,
+      imgMaksMatematyczny3
+    ],
     gallery: [
-      imgMaksLogoFox
+      imgMaksMatematyczny2,
+      imgMaksMatematyczny3
     ],
     tools: ['InkScape', 'Canva'],
     year: '2026',
@@ -295,6 +324,117 @@ export const PROJECTS: Project[] = [
       'Wizualna prezentacja: opracowanie elementów graficznych i przygotowanie wizualizacji grafik produktowych',
       'Struktura i skład: skład i łamanie tekstu, porządkowanie treści oraz projektowanie układu stron',
       'Spójność: dopracowanie detali, budowanie jednolitego języka wizualnego i przygotowanie katalogu cyfrowego'
+    ]
+  },
+  {
+    id: 'raypath-projekty-do-druku',
+    title: 'Raypath - projekty do druku',
+    category: 'Print',
+    shortDescription: 'Dwa projekty do druku dla marki Raypath: minimalistyczna, elegancka wizytówka oraz nowoczesna, dwustronna ulotka informacyjna.',
+    description: 'Kompleksowy zestaw materiałów poligraficznych przygotowanych dla marki Raypath. Realizacja obejmuje dwa spójne projekty do profesjonalnego druku:\n\n• Wizytówka firmowa: Prosta, elegancka forma oparta na czytelnej typografii i spójnej identyfikacji wizualnej marki. Buduje zaufanie i profesjonalny wizerunek w bezpośrednim kontakcie z klientem.\n• Ulotka informacyjna: Nowoczesna, dwustronna forma łącząca wysoką funkcjonalność z estetyką. Przejrzysty układ i świadoma hierarchia treści ułatwiają szybki i intuicyjny odbiór kluczowych informacji o produktach i technologii Nanosilver.\n\nProjekty przygotowano z dbałością o detale kompozycyjne, spójność z brandbookiem oraz techniczne wymogi profesjonalnego druku.',
+    thumbnail: imgRaypathPrint1,
+    gallery: [
+      imgRaypathPrint1,
+      imgRaypathPrint2,
+      imgRaypathPrint3,
+      imgRaypathPrint4
+    ],
+    grid2x2: [
+      imgRaypathPrint1,
+      imgRaypathPrint2,
+      imgRaypathPrint3,
+      imgRaypathPrint4
+    ],
+    tools: ['Canva'],
+    year: '2025',
+    featured: false,
+    client: 'Raypath',
+    scope: [
+      'Projekt graficzny minimalistycznej, eleganckiej wizytówki firmowej',
+      'Projekt nowoczesnej, dwustronnej ulotki informacyjno-produktowej',
+      'Opracowanie czytelnej siatki typograficznej i przejrzystej hierarchii treści',
+      'Harmonijne wdrożenie identyfikacji wizualnej i palety kolorystycznej Raypath',
+      'Przygotowanie kompletnych plików DTP do profesjonalnego druku ze spadami'
+    ]
+  },
+  {
+    id: 'lionelo-logo',
+    title: 'Lionelo - logo',
+    category: 'Digital i Branding',
+    shortDescription: 'Projekt konkursowy identyfikacji wizualnej dla marki Lionelo z branży edukacji dziecięcej, prezentujący dwa warianty logotypu z autorskim sygnetem.',
+    description: 'Projekt konkursowy identyfikacji wizualnej dla marki Lionelo, dedykowanej edukacji i wszechstronnemu rozwojowi dzieci. Koncepcja opiera się na stworzeniu ciepłego, przyjaznego i budzącego zaufanie wizerunku, który przemawia zarówno do najmłodszych, jak i ich rodziców. Opracowanie obejmuje dwa warianty logotypu konkursowego z autorskim sygnetem uśmiechniętego lwa, subtelną muszką oraz miękką, dynamiczną typografią hasła "fun and learning".',
+    thumbnail: imgLioneloCombined,
+    gallery: [
+      imgLionelo1,
+      imgLionelo2
+    ],
+    tools: ['Canva', 'InkScape'],
+    featured: false,
+    client: 'Lionelo',
+    scope: [
+      'Analiza briefu konkursowego i specyfiki branży edukacji dziecięcej',
+      'Opracowanie koncepcji plastycznej przyjaznego sygnetu lwa',
+      'Precyzyjna wektoryzacja kształtów i linii w programie InkScape',
+      'Dobór łagodnej typografii dla nazwy marki i hasła towarzyszącego',
+      'Zaprojektowanie dwóch unikalnych wariantów kompozycyjnych logotypu',
+      'Przygotowanie ciepłej, zbalansowanej palety kolorystycznej'
+    ]
+  },
+  {
+    id: '4parejo-logo',
+    title: '4parejo - logo',
+    category: 'Digital i Branding',
+    shortDescription: 'Projekt konkursowy logo dla serwisu i sklepu motoryzacyjnego 4parejo.pl. Dynamiczny znak łączący motyw tłoka silnikowego z nowoczesną estetyką e-commerce.',
+    description: 'Projekt konkursowy logo stworzony dla firmy 4parejo.pl, specjalizującej się w sprzedaży części samochodowych. Celem było zaprojektowanie wyrazistego, nowoczesnego i technicznego znaku, który budzi skojarzenia z precyzją, mocą i niezawodnością. Główny sygnet wkomponowuje motyw tłoka silnikowego w dynamiczny, aerodynamiczny trapez, uzupełniony mocną, geometryczną typografią z kontrastowym akcentem barwnym.',
+    thumbnail: img4parejoSquare,
+    gallery: [
+      img4parejoSingle
+    ],
+    tools: ['Canva', 'InkScape'],
+    featured: false,
+    client: '4parejo.pl',
+    scope: [
+      'Analiza rynku e-commerce części samochodowych i założeń konkursu',
+      'Projekt autorskiego sygnetu integrującego motyw tłoka silnika',
+      'Wektorowa konstrukcja geometryczna i optymalizacja w InkScape',
+      'Dobór solidnej, bezszeryfowej typografii dla domeny 4parejo.pl',
+      'Opracowanie kontrastowej palety barw opartej na energetycznej czerwieni i technicznej szarości',
+      'Przygotowanie plików produkcyjnych dla platformy sklepowej i materiałów promocyjnych'
+    ]
+  },
+  {
+    id: 'mogalo-branding',
+    title: 'Mogalo',
+    category: 'Digital i Branding',
+    shortDescription: 'Kompleksowa identyfikacja wizualna platformy edukacyjnej Mogalo. Opracowanie logo, postaci maskotek do konkursów przedmiotowych, materiałów drukowanych DTP i multimediów.',
+    description: 'Kompleksowy projekt identyfikacji wizualnej i oprawy graficznej dla marki Mogalo, specjalizującej się w interaktywnych konkursach edukacyjnych dla dzieci z matematyki, języka angielskiego, niemieckiego oraz polskiego, rozwiązywanych bezpośrednio na urządzeniach mobilnych.\n\nJako główny projektant odpowiadałem za całość prac graficznych: od stworzenia nowoczesnego logo łączącego motyw urządzenia mobilnego (tabletu) z biretem absolwenta i literą „M”, przez opracowanie dedykowanych postaci-maskotek dla poszczególnych dziedzin konkursowych, aż po przygotowanie kompletnego pakietu materiałów do druku (broszury informacyjne, wizytówki, plakaty) oraz zasobów cyfrowych i multimedialnych (banery internetowe, stopki mailingowe i grafiki promocyjne).',
+    thumbnail: imgMogaloSquare,
+    topAndRow: {
+      top: imgMogaloLogoProstokat,
+      row: [
+        imgMogaloLogo2,
+        imgMogaloWizytowka1,
+        imgMogaloWizytowka3,
+        imgMogaloLogo3
+      ]
+    },
+    gallery: [
+      imgMogaloLogoProstokat,
+      imgMogaloLogo2,
+      imgMogaloWizytowka1,
+      imgMogaloWizytowka3,
+      imgMogaloLogo3
+    ],
+    tools: ['Canva', 'InkScape'],
+    featured: false,
+    client: 'Mogalo',
+    scope: [
+      'Projekt oficjalnego logo marki Mogalo (motyw tabletu edukacyjnego i symbolu wiedzy)',
+      'Opracowanie unikalnych postaci-maskotek dedykowanych konkursom tematycznym: matematycznemu, angielskiemu, niemieckiemu i polskiemu',
+      'Projekt materiałów firmowych i akcydensów biznesowych (wizytówki firmowe, teczki, papier firmowy)',
+      'Kompleksowe przygotowanie materiałów do druku DTP (broszury informacyjne, ulotki, plakaty promocyjne)',
+      'Kreacja materiałów cyfrowych i multimedialnych: banery reklamowe, kreacje display, grafiki do aplikacji oraz profesjonalne stopki mailingowe',
+      'Zapewnienie pełnej spójności wizualnej pomiędzy środowiskiem mobilnym a materiałami drukowanymi'
     ]
   }
 ];

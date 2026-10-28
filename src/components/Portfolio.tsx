@@ -12,7 +12,13 @@ export function Portfolio() {
     if (selectedCategory === 'Wszystkie') {
       return PROJECTS;
     }
-    return PROJECTS.filter((p) => p.category === selectedCategory);
+    return PROJECTS.filter((p) => {
+      if (p.category === selectedCategory) return true;
+      if (typeof p.category === 'string' && p.category.toLowerCase().includes(selectedCategory.toLowerCase())) {
+        return true;
+      }
+      return false;
+    });
   }, [selectedCategory]);
 
   return (
@@ -21,7 +27,7 @@ export function Portfolio() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-2">
+            <div className="text-sm sm:text-xs uppercase tracking-widest text-zinc-500 font-semibold mb-2">
               Wybrane realizacje
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#161530]">
@@ -34,7 +40,7 @@ export function Portfolio() {
             <button
               type="button"
               onClick={() => setSelectedCategory('Wszystkie')}
-              className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+              className={`px-3.5 py-1.5 text-sm sm:text-xs font-medium rounded-md transition-all whitespace-nowrap ${
                 selectedCategory === 'Wszystkie'
                   ? 'bg-white text-[#161530] shadow-xs font-semibold'
                   : 'text-zinc-600 hover:text-[#161530]'
@@ -43,13 +49,15 @@ export function Portfolio() {
               Wszystkie ({PROJECTS.length})
             </button>
             {CATEGORIES.map((cat) => {
-              const count = PROJECTS.filter((p) => p.category === cat).length;
+              const count = PROJECTS.filter((p) =>
+                p.category === cat || (typeof p.category === 'string' && p.category.toLowerCase().includes(cat.toLowerCase()))
+              ).length;
               return (
                 <button
                   key={cat}
                   type="button"
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3.5 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+                  className={`px-3.5 py-1.5 text-sm sm:text-xs font-medium rounded-md transition-all whitespace-nowrap ${
                     selectedCategory === cat
                       ? 'bg-white text-[#161530] shadow-xs font-semibold'
                       : 'text-zinc-600 hover:text-[#161530]'
@@ -97,19 +105,23 @@ export function Portfolio() {
                 <div className="p-4 sm:p-6 flex flex-col flex-1 justify-between bg-white">
                   <div>
                     {/* Unboxed Metadata with typographic separator */}
-                    <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-zinc-500 font-medium mb-1.5 sm:mb-2.5">
+                    <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-xs text-zinc-500 font-medium mb-1.5 sm:mb-2.5">
                       <span className="uppercase tracking-wider text-[#235d94] font-semibold truncate">{project.category}</span>
-                      <span aria-hidden="true" className="text-zinc-300">·</span>
-                      <span className="shrink-0">{project.year}</span>
+                      {project.year && (
+                        <>
+                          <span aria-hidden="true" className="text-zinc-300">·</span>
+                          <span className="shrink-0">{project.year}</span>
+                        </>
+                      )}
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold tracking-tight text-[#161530] mb-1.5 sm:mb-2 group-hover:text-[#235d94] transition-colors line-clamp-1 sm:line-clamp-2">
+                    <h3 className="text-lg sm:text-lg lg:text-xl font-bold tracking-tight text-[#161530] mb-1.5 sm:mb-2 group-hover:text-[#235d94] transition-colors line-clamp-1 sm:line-clamp-2">
                       {project.title}
                     </h3>
 
                     {/* Short Description */}
-                    <p className="text-xs sm:text-sm text-zinc-600 line-clamp-2 leading-relaxed">
+                    <p className="text-sm sm:text-sm text-zinc-600 line-clamp-2 leading-relaxed">
                       {project.shortDescription}
                     </p>
 
@@ -122,7 +134,7 @@ export function Portfolio() {
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           onKeyDown={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white bg-[#235d94] rounded hover:bg-[#1c4b78] transition-colors shadow-xs group/btn"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-xs font-semibold text-white bg-[#235d94] rounded hover:bg-[#1c4b78] transition-colors shadow-xs group/btn"
                         >
                           <span>{project.externalLink.label}</span>
                           <ExternalLink className="w-3 h-3 text-white/80 group-hover/btn:text-white transition-colors" />
@@ -132,7 +144,7 @@ export function Portfolio() {
                   </div>
 
                   {/* Card Footer Tools */}
-                  <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-zinc-100 flex items-center justify-between text-[11px] sm:text-xs text-zinc-400">
+                  <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-zinc-100 flex items-center justify-between text-xs sm:text-xs text-zinc-400">
                     <div className="flex items-center gap-1.5 sm:gap-2 truncate max-w-[70%] sm:max-w-[75%]">
                       {project.tools.slice(0, 2).map((tool, idx) => (
                         <span key={tool} className="truncate">
@@ -154,11 +166,11 @@ export function Portfolio() {
         {/* Empty state fallback */}
         {filteredProjects.length === 0 && (
           <div className="text-center py-20 bg-zinc-50 rounded-lg border border-dashed border-zinc-300">
-            <p className="text-sm text-zinc-500 mb-3">Brak projektów w wybranej kategorii.</p>
+            <p className="text-base sm:text-sm text-zinc-500 mb-3">Brak projektów w wybranej kategorii.</p>
             <button
               type="button"
               onClick={() => setSelectedCategory('Wszystkie')}
-              className="text-xs font-semibold text-zinc-900 underline"
+              className="text-sm sm:text-xs font-semibold text-zinc-900 underline"
             >
               Pokaż wszystkie projekty
             </button>

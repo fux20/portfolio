@@ -18,8 +18,6 @@ export function Footer() {
           </span>
           <span className="hidden sm:inline text-zinc-700">·</span>
           <span>© {currentYear} Portfolio graficzne</span>
-          <span className="hidden sm:inline text-zinc-700">·</span>
-          <span className="text-zinc-600">Gotowe do wdrożenia na GitHub Pages</span>
         </div>
 
         {/* Right: Back to top button */}

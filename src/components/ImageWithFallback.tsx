@@ -3,12 +3,16 @@ import { Image as ImageIcon } from 'lucide-react';
 
 interface ImageWithFallbackProps extends ImgHTMLAttributes<HTMLImageElement> {
   fallbackTitle?: string;
+  imgClassName?: string;
+  objectFit?: 'cover' | 'contain';
 }
 
 export function ImageWithFallback({
   src,
   alt,
   className = '',
+  imgClassName = '',
+  objectFit,
   fallbackTitle,
   ...props
 }: ImageWithFallbackProps) {
@@ -33,6 +37,9 @@ export function ImageWithFallback({
     );
   }
 
+  const isContain = objectFit === 'contain' || className.includes('object-contain');
+  const fitClass = isContain ? 'object-contain' : 'object-cover';
+
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {isLoading && (
@@ -41,9 +48,9 @@ export function ImageWithFallback({
       <img
         src={src}
         alt={alt || ''}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
+        className={`w-full h-full ${fitClass} transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
-        }`}
+        } ${imgClassName}`}
         loading="lazy"
         referrerPolicy="no-referrer"
         onLoad={() => setIsLoading(false)}

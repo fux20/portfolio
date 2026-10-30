@@ -64,8 +64,20 @@ import imgRaypathPrint1 from '../assets/images/raypath_print_1.png';
 import imgRaypathPrint2 from '../assets/images/raypath_print_2.png';
 import imgRaypathPrint3 from '../assets/images/raypath_print_3.png';
 import imgRaypathPrint4 from '../assets/images/raypath_print_4.png';
+import imgMogaloUlotki from '../assets/images/mogalo_ulotki.jpg';
+import imgSiatkowkaKwadrat from '../assets/images/siatkowka_broszura_kwadrat.png';
+import imgSiatkowka1 from '../assets/images/siatkowka_broszura_1.jpg';
+import imgSiatkowka2 from '../assets/images/siatkowka_broszura_2.jpg';
+import imgSiatkowka3 from '../assets/images/siatkowka_broszura_3.jpg';
+import imgSiatkowka4 from '../assets/images/siatkowka_broszura_4.jpg';
+import imgBiKKwadrat from '../assets/images/bik_kwadrat.png';
+import imgBiKProstokat from '../assets/images/bik_prostokat.png';
+import imgBiKBaner1 from '../assets/images/bik_baner_1.jpg';
+import imgBiKBaner2 from '../assets/images/bik_baner_2.jpg';
+import imgBiKBaner3 from '../assets/images/bik_baner_3.jpg';
+import imgBiKBaner4 from '../assets/images/bik_baner_4.jpg';
 
-export type ProjectCategory = 'Branding' | 'Digital' | 'Social Media' | 'Print' | 'Digital i Branding';
+export type ProjectCategory = 'Branding' | 'Digital' | 'Social Media' | 'Print' | 'Digital i Branding' | 'Digital, Branding, DTP';
 
 export interface Project {
   /** Unikalny identyfikator projektu (np. "lumen-branding") */
@@ -118,6 +130,7 @@ export interface Project {
   topAndRow?: {
     top: string;
     row: string[];
+    bottom?: string;
   };
   /** Opcjonalny zewnętrzny link do pełnego projektu (np. Canva) */
   externalLink?: {
@@ -128,6 +141,18 @@ export interface Project {
   grid2x2?: string[];
   /** Prezentacja grafik jedno koło drugiego w oknie podglądu bez przewijanej galerii (opcjonalnie) */
   sideBySide?: string[];
+  /** Czy wymusić prezentację w karuzeli (opcjonalnie) */
+  isCarousel?: boolean;
+  /** Dodatkowa sekcja na dole podglądu pod zakresem prac (np. "Projekty") */
+  additionalSection?: {
+    title: string;
+    singleImage?: string;
+    subsections?: {
+      title?: string;
+      layout?: 'bik-banners' | 'single' | 'grid2' | 'stacked';
+      images?: string[];
+    }[];
+  };
 }
 
 export const CATEGORIES: ('Branding' | 'Digital' | 'Social Media' | 'Print')[] = [
@@ -435,6 +460,74 @@ export const PROJECTS: Project[] = [
       'Kompleksowe przygotowanie materiałów do druku DTP (broszury informacyjne, ulotki, plakaty promocyjne)',
       'Kreacja materiałów cyfrowych i multimedialnych: banery reklamowe, kreacje display, grafiki do aplikacji oraz profesjonalne stopki mailingowe',
       'Zapewnienie pełnej spójności wizualnej pomiędzy środowiskiem mobilnym a materiałami drukowanymi'
+    ],
+    additionalSection: {
+      title: 'Projekty',
+      singleImage: imgMogaloUlotki
+    }
+  },
+  {
+    id: 'broszura-siatkowka-mistrzostwa-2014',
+    title: 'Broszura "Droga Polaków do mistrzostwa świata"',
+    category: 'Print',
+    shortDescription: 'Projekt pamiątkowej broszury dokumentującej historyczną drogę reprezentacji Polski w siatkówce mężczyzn do zdobycia tytułu Mistrzów Świata 2014.',
+    description: 'Kompleksowy projekt graficzny pamiątkowej publikacji okolicznościowej, dokumentującej historyczną drogę reprezentacji Polski w siatkówce mężczyzn do zdobycia tytułu Mistrzów Świata podczas turnieju FIVB 2014 rozgrywanego w Polsce.\n\nBroszura łączy dynamiczną, pełną emocji narrację wizualną z rygorystyczną, profesjonalną siatką typograficzną. Układ stron został zaprojektowany tak, aby oddać podniosłą atmosferę turnieju – od spektakularnego meczu otwarcia na Stadionie Narodowym w Warszawie po finałowy triumf w katowickim Spodku. Projekt łączy wielkoformatowe fotografie reporterskie, przejrzyste tabele statystyczne, cytaty z wypowiedzi zawodników oraz spójne akcenty barw narodowych w nowoczesnym, eleganckim wydaniu.',
+    thumbnail: imgSiatkowkaKwadrat,
+    gallery: [
+      imgSiatkowka1,
+      imgSiatkowka3,
+      imgSiatkowka4,
+      imgSiatkowka2
+    ],
+    tools: ['InDesign'],
+    year: '2014',
+    featured: false,
+    client: 'Polska Siatkówka',
+    isCarousel: true,
+    scope: [
+      'Opracowanie koncepcji kreatywnej oraz spójnej makiety wydawniczej broszury w programie Adobe InDesign',
+      'Projekt wielokolumnowej siatki layoutu, hierarchii typograficznej i stylów akapitowych',
+      'Selekcja, kadrowanie i obróbka reporterskich fotografii sportowych z turnieju',
+      'Skład i łamanie tekstu, tabel wyników, statystyk meczowych oraz wyróżników graficznych',
+      'Przygotowanie kompletnego projektu DTP do profesjonalnego druku offsetowego ze spadami i profilami barwnymi'
     ]
+  },
+  {
+    id: 'beton-i-knot',
+    title: 'Beton i Knot',
+    category: 'Digital, Branding, DTP',
+    shortDescription: 'Kompleksowa identyfikacja wizualna, etykiety produktowe, sklep internetowy WooCommerce oraz kreacje reklamowe i materiały DTP dla marki świec sojowych.',
+    description: 'Kompleksowy projekt identyfikacji wizualnej, oprawy graficznej oraz platformy e-commerce dla manufaktury Beton i Knot, specjalizującej się w ręcznym tworzeniu świec zapachowych w szkle oraz unikalnych, rzemieślniczych osłonach betonowych.\n\nMoim zadaniem było całościowe opracowanie wizerunku marki: od zaprojektowania nowoczesnego logo odzwierciedlającego kształt betonowej osłony z centralnie usytuowanym knotem (geometryczny rzut świecy z góry), przez projekt etykiet produktowych i naklejek na szklane słoje, po zaprojektowanie i wdrożenie funkcjonalnego sklepu internetowego w WooCommerce. Przygotowałem również spójną oprawę marketingową – banery reklamowe display, szablony postów na Instagram oraz komplet materiałów poligraficznych do druku, w tym wizytówki, eleganckie ulotki informacyjne i materiały promocyjne dodawane do zamówień klientów.',
+    thumbnail: imgBiKKwadrat,
+    gallery: [
+      imgBiKProstokat
+    ],
+    tools: ['Canva', 'InkScape'],
+    year: '2022',
+    featured: false,
+    client: 'Beton i Knot',
+    scope: [
+      'Projekt oficjalnego logo marki (geometryczna koncepcja betonowej osłony z knotem od góry)',
+      'Projekt etykiet produktowych oraz naklejek na szkło na świece zapachowe',
+      'Zaprojektowanie i wykonanie responsywnego sklepu internetowego opartego o WooCommerce',
+      'Kreacja banerów reklamowych oraz spójnych grafik do postów na Instagramie',
+      'Projekt materiałów akcydensowych do druku: wizytówek firmowych oraz ulotek reklamowych',
+      'Opracowanie materiałów promocyjnych i podziękowań dołączanych do zamówień klientów'
+    ],
+    additionalSection: {
+      title: 'Projekty',
+      subsections: [
+        {
+          title: 'Banery reklamowe',
+          layout: 'bik-banners',
+          images: [
+            imgBiKBaner2,
+            imgBiKBaner4,
+            imgBiKBaner3,
+            imgBiKBaner1
+          ]
+        }
+      ]
+    }
   }
 ];

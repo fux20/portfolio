@@ -153,7 +153,7 @@ export function Portfolio() {
                         </span>
                       ))}
                     </div>
-                    <span className="text-[#235d94] font-semibold group-hover:underline shrink-0">
+                    <span className="text-sm text-[#235d94] font-semibold group-hover:underline shrink-0">
                       Szczegóły →
                     </span>
                   </div>

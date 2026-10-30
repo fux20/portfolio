@@ -86,21 +86,19 @@ export function ProjectModal({
     >
       <div className="relative w-full max-w-5xl bg-[#ffffff] rounded-lg shadow-2xl border border-zinc-200 overflow-hidden my-auto animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
         {/* Modal Top Bar */}
-        <div className="flex items-center justify-between px-5 sm:px-6 py-3.5 sm:py-4 border-b border-zinc-200 bg-[#fafafa]">
-          <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-xs text-zinc-500 font-medium">
-            <span className="uppercase tracking-wider text-[#235d94] font-semibold">{project.category}</span>
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-3.5 border-b border-zinc-200 bg-[#fafafa] gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5 text-sm sm:text-xs text-zinc-500 font-medium min-w-0">
+            <span className="uppercase tracking-wider text-[#235d94] font-semibold shrink-0">{project.category}</span>
             {project.year && (
               <>
-                <span aria-hidden="true">·</span>
-                <span>{project.year}</span>
+                <span aria-hidden="true" className="shrink-0">·</span>
+                <span className="shrink-0">{project.year}</span>
               </>
             )}
-            {project.client && (
-              <>
-                <span aria-hidden="true">·</span>
-                <span className="hidden sm:inline text-zinc-600">{project.client}</span>
-              </>
-            )}
+            <span aria-hidden="true" className="shrink-0">·</span>
+            <span className="font-semibold text-zinc-800 truncate" title={project.title}>
+              {project.title}
+            </span>
           </div>
 
           <div className="flex items-center gap-1 sm:gap-2">
@@ -172,22 +170,89 @@ export function ProjectModal({
               </div>
             </div>
           ) : project.grid2x2 ? (
-            /* Siatka 2x2 bez przewijanej galerii */
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {project.grid2x2.map((img, idx) => (
-                <div key={idx} className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
-                  <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
-                    <ImageWithFallback
-                      src={img}
-                      alt={`${project.title} - plansza ${idx + 1}`}
-                      fallbackTitle={`${project.title} ${idx + 1}`}
-                      objectFit="contain"
-                      className="w-full h-full flex items-center justify-center"
-                      imgClassName="w-full h-full object-contain"
-                    />
+            /* Układ 2x2: slajder na mobile, siatka 2x2 na desktopie */
+            <div>
+              {/* Slajder na urządzeniach mobilnych */}
+              <div className="block sm:hidden space-y-3">
+                <div className="relative w-full rounded-lg bg-zinc-100 overflow-hidden flex items-center justify-center border border-zinc-200 p-2 group">
+                  <ImageWithFallback
+                    src={project.grid2x2[activeImageIndex % project.grid2x2.length] || project.grid2x2[0]}
+                    alt={`${project.title} - plansza ${(activeImageIndex % project.grid2x2.length) + 1}`}
+                    fallbackTitle={`${project.title} ${(activeImageIndex % project.grid2x2.length) + 1}`}
+                    objectFit="contain"
+                    className="w-full flex items-center justify-center aspect-square"
+                    imgClassName="w-full h-full object-contain mx-auto block"
+                  />
+
+                  {/* Przyciski nawigacji slajdera */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : project.grid2x2!.length - 1))}
+                    title="Poprzednie zdjęcie w slajderze"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/95 hover:bg-white text-zinc-800 shadow-md flex items-center justify-center border border-zinc-200/80 transition-transform active:scale-90"
+                    aria-label="Poprzednie zdjęcie"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageIndex((prev) => (prev < project.grid2x2!.length - 1 ? prev + 1 : 0))}
+                    title="Następne zdjęcie w slajderze"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/95 hover:bg-white text-zinc-800 shadow-md flex items-center justify-center border border-zinc-200/80 transition-transform active:scale-90"
+                    aria-label="Następne zdjęcie"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+
+                  {/* Licznik slajdów */}
+                  <div className="absolute bottom-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-[#161530]/80 backdrop-blur-xs text-white text-xs font-medium shadow-sm">
+                    {(activeImageIndex % project.grid2x2.length) + 1} / {project.grid2x2.length}
                   </div>
                 </div>
-              ))}
+
+                {/* Miniatury pod slajderem na mobile */}
+                <div className="flex items-center gap-2 overflow-x-auto py-1">
+                  {project.grid2x2.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIndex(idx)}
+                      aria-label={`Wybierz zdjęcie ${idx + 1}`}
+                      className={`relative w-16 h-14 rounded overflow-hidden shrink-0 border-2 transition-all ${
+                        (activeImageIndex % project.grid2x2!.length) === idx
+                          ? 'border-[#235d94] shadow-sm ring-2 ring-[#235d94]/30'
+                          : 'border-zinc-200 opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <ImageWithFallback
+                        src={img}
+                        alt={`${project.title} ${idx + 1}`}
+                        objectFit="contain"
+                        className="w-full h-full bg-zinc-50 flex items-center justify-center"
+                        imgClassName="w-full h-full object-contain p-0.5"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Siatka 2x2 na urządzeniach desktopowych / tabletach (sm i w górę) */}
+              <div className="hidden sm:grid sm:grid-cols-2 gap-4">
+                {project.grid2x2.map((img, idx) => (
+                  <div key={idx} className="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                    <div className="aspect-square w-full bg-zinc-100 flex items-center justify-center p-2 overflow-hidden">
+                      <ImageWithFallback
+                        src={img}
+                        alt={`${project.title} - plansza ${idx + 1}`}
+                        fallbackTitle={`${project.title} ${idx + 1}`}
+                        objectFit="contain"
+                        className="w-full h-full flex items-center justify-center"
+                        imgClassName="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ) : project.sideBySide ? (
             /* Dwa zdjęcia prezentowane jedno koło drugiego (2 kolumny) */
@@ -326,7 +391,7 @@ export function ProjectModal({
           <div className="pt-2 border-b border-zinc-100 pb-3">
             <h2
               id="modal-project-title"
-              className="text-[26px] sm:text-3xl font-bold tracking-tight text-[#161530]"
+              className="text-[22px] sm:text-2xl font-bold tracking-tight text-[#161530]"
             >
               {project.title}
             </h2>
@@ -337,7 +402,7 @@ export function ProjectModal({
             {/* Left Column: Narrative and Tools */}
             <div className="lg:col-span-7 space-y-6">
               <div>
-                <p className="text-zinc-600 text-lg sm:text-base leading-relaxed">
+                <p className="text-zinc-600 text-base sm:text-[15px] leading-relaxed">
                   {project.description}
                 </p>
                 {project.externalLink && (
@@ -375,17 +440,17 @@ export function ProjectModal({
             <div className="lg:col-span-5 space-y-6 bg-zinc-50/70 p-5 sm:p-6 rounded border border-zinc-200/80">
               {((project.scopeGroups && project.scopeGroups.length > 0) || (project.scope && project.scope.length > 0)) && (
                 <div>
-                  <h3 className="text-sm sm:text-xs font-bold uppercase tracking-wider text-[#161530] mb-3">
+                  <h3 className="text-base sm:text-sm font-bold uppercase tracking-wider text-[#161530] mb-3">
                     Zakres zrealizowanych prac
                   </h3>
                   {project.scopeGroups && project.scopeGroups.length > 0 ? (
                     <div className="space-y-4">
                       {project.scopeGroups.map((group, gIdx) => (
                         <div key={gIdx} className="space-y-2">
-                          <h4 className="text-sm sm:text-xs font-bold text-[#161530] tracking-wide">
+                          <h4 className="text-base sm:text-sm font-bold text-[#161530] tracking-wide">
                             {group.title}
                           </h4>
-                          <ul className="space-y-1.5 pl-1 text-sm sm:text-sm text-zinc-600">
+                          <ul className="space-y-2 pl-1 text-base sm:text-[15px] text-zinc-600">
                             {group.items.map((item, iIdx) => (
                               <li key={iIdx} className="flex items-start gap-2">
                                 <CheckCircle2 className="w-4 h-4 text-[#235d94] shrink-0 mt-0.5" />
@@ -397,7 +462,7 @@ export function ProjectModal({
                       ))}
                     </div>
                   ) : (
-                    <ul className="space-y-2 text-sm sm:text-sm text-zinc-600">
+                    <ul className="space-y-2.5 text-base sm:text-[15px] text-zinc-600">
                       {project.scope?.map((item) => (
                         <li key={item} className="flex items-start gap-2">
                           <CheckCircle2 className="w-4 h-4 text-[#235d94] shrink-0 mt-0.5" />

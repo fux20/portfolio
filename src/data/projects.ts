@@ -383,6 +383,44 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
+    id: 'beton-i-knot',
+    title: 'Beton i Knot',
+    category: 'Digital, Branding, DTP',
+    shortDescription: 'Kompleksowa identyfikacja wizualna, etykiety produktowe, sklep internetowy WooCommerce oraz kreacje reklamowe i materiały DTP dla marki świec sojowych.',
+    description: 'Kompleksowy projekt identyfikacji wizualnej, oprawy graficznej oraz platformy e-commerce dla manufaktury Beton i Knot, specjalizującej się w ręcznym tworzeniu świec zapachowych w szkle oraz unikalnych, rzemieślniczych osłonach betonowych.\n\nMoim zadaniem było całościowe opracowanie wizerunku marki: od zaprojektowania nowoczesnego logo odzwierciedlającego kształt betonowej osłony z centralnie usytuowanym knotem (geometryczny rzut świecy z góry), przez projekt etykiet produktowych i naklejek na szklane słoje, po zaprojektowanie i wdrożenie funkcjonalnego sklepu internetowego w WooCommerce. Przygotowałem również spójną oprawę marketingową – banery reklamowe display, szablony postów na Instagram oraz komplet materiałów poligraficznych do druku, w tym wizytówki, eleganckie ulotki informacyjne i materiały promocyjne dodawane do zamówień klientów.',
+    thumbnail: imgBiKKwadrat,
+    gallery: [
+      imgBiKProstokat
+    ],
+    tools: ['Canva', 'InkScape'],
+    year: '2022',
+    featured: false,
+    client: 'Beton i Knot',
+    scope: [
+      'Projekt oficjalnego logo marki (geometryczna koncepcja betonowej osłony z knotem od góry)',
+      'Projekt etykiet produktowych oraz naklejek na szkło na świece zapachowe',
+      'Zaprojektowanie i wykonanie responsywnego sklepu internetowego opartego o WooCommerce',
+      'Kreacja banerów reklamowych oraz spójnych grafik do postów na Instagramie',
+      'Projekt materiałów akcydensowych do druku: wizytówek firmowych oraz ulotek reklamowych',
+      'Opracowanie materiałów promocyjnych i podziękowań dołączanych do zamówień klientów'
+    ],
+    additionalSection: {
+      title: 'Projekty',
+      subsections: [
+        {
+          title: 'Banery reklamowe',
+          layout: 'bik-banners',
+          images: [
+            imgBiKBaner2,
+            imgBiKBaner4,
+            imgBiKBaner3,
+            imgBiKBaner1
+          ]
+        }
+      ]
+    }
+  },
+  {
     id: 'lionelo-logo',
     title: 'Lionelo - logo',
     category: 'Digital i Branding',
@@ -491,43 +529,5 @@ export const PROJECTS: Project[] = [
       'Skład i łamanie tekstu, tabel wyników, statystyk meczowych oraz wyróżników graficznych',
       'Przygotowanie kompletnego projektu DTP do profesjonalnego druku offsetowego ze spadami i profilami barwnymi'
     ]
-  },
-  {
-    id: 'beton-i-knot',
-    title: 'Beton i Knot',
-    category: 'Digital, Branding, DTP',
-    shortDescription: 'Kompleksowa identyfikacja wizualna, etykiety produktowe, sklep internetowy WooCommerce oraz kreacje reklamowe i materiały DTP dla marki świec sojowych.',
-    description: 'Kompleksowy projekt identyfikacji wizualnej, oprawy graficznej oraz platformy e-commerce dla manufaktury Beton i Knot, specjalizującej się w ręcznym tworzeniu świec zapachowych w szkle oraz unikalnych, rzemieślniczych osłonach betonowych.\n\nMoim zadaniem było całościowe opracowanie wizerunku marki: od zaprojektowania nowoczesnego logo odzwierciedlającego kształt betonowej osłony z centralnie usytuowanym knotem (geometryczny rzut świecy z góry), przez projekt etykiet produktowych i naklejek na szklane słoje, po zaprojektowanie i wdrożenie funkcjonalnego sklepu internetowego w WooCommerce. Przygotowałem również spójną oprawę marketingową – banery reklamowe display, szablony postów na Instagram oraz komplet materiałów poligraficznych do druku, w tym wizytówki, eleganckie ulotki informacyjne i materiały promocyjne dodawane do zamówień klientów.',
-    thumbnail: imgBiKKwadrat,
-    gallery: [
-      imgBiKProstokat
-    ],
-    tools: ['Canva', 'InkScape'],
-    year: '2022',
-    featured: false,
-    client: 'Beton i Knot',
-    scope: [
-      'Projekt oficjalnego logo marki (geometryczna koncepcja betonowej osłony z knotem od góry)',
-      'Projekt etykiet produktowych oraz naklejek na szkło na świece zapachowe',
-      'Zaprojektowanie i wykonanie responsywnego sklepu internetowego opartego o WooCommerce',
-      'Kreacja banerów reklamowych oraz spójnych grafik do postów na Instagramie',
-      'Projekt materiałów akcydensowych do druku: wizytówek firmowych oraz ulotek reklamowych',
-      'Opracowanie materiałów promocyjnych i podziękowań dołączanych do zamówień klientów'
-    ],
-    additionalSection: {
-      title: 'Projekty',
-      subsections: [
-        {
-          title: 'Banery reklamowe',
-          layout: 'bik-banners',
-          images: [
-            imgBiKBaner2,
-            imgBiKBaner4,
-            imgBiKBaner3,
-            imgBiKBaner1
-          ]
-        }
-      ]
-    }
   }
 ];
